@@ -1,0 +1,25 @@
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Configuración del editor
+.vscode/
+.idea/
+
+# Archivos de entorno y configuración local
+*.env
+config.php
+
+# Base de datos local (puedes quitar esta línea si quieres subirla)
+database.db
+*.sqlite
+*.db
+
+# Carpeta temporal
+tmp/
+*.log
+
+# Archivos de respaldo o cache
+*.bak
+*.tmp
+*.swp
