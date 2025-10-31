@@ -2,53 +2,38 @@
 $db = new PDO('sqlite:database.db');
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-// Verifica y agrega columna photo_url a persona
-$cols = $db->query("PRAGMA table_info(persona)")->fetchAll(PDO::FETCH_ASSOC);
-$colNames = array_column($cols, 'name');
-
-if (!in_array('photo_url', $colNames)) {
-    $db->exec("ALTER TABLE persona ADD COLUMN photo_url TEXT;");
-    echo "✅ Columna photo_url agregada a persona.<br>";
+// --- Helper para revisar columnas ---
+function hasColumn($db, $table, $column) {
+    $cols = $db->query("PRAGMA table_info($table)")->fetchAll(PDO::FETCH_ASSOC);
+    return in_array($column, array_column($cols, 'name'));
 }
 
-// Verifica y agrega columna photo_url a compania
-$cols = $db->query("PRAGMA table_info(compania)")->fetchAll(PDO::FETCH_ASSOC);
-$colNames = array_column($cols, 'name');
+// --- Agregar columnas si no existen ---
+$columnsToAdd = [
+    'persona' => ['photo_url', 'dni', 'apellido', 'cargo', 'direccion', 'telefono'],
+    'compania' => ['photo_url']
+];
 
-if (!in_array('photo_url', $colNames)) {
-    $db->exec("ALTER TABLE compania ADD COLUMN photo_url TEXT;");
-    echo "✅ Columna photo_url agregada a compania.<br>";
+foreach ($columnsToAdd as $table => $cols) {
+    foreach ($cols as $col) {
+        if (!hasColumn($db, $table, $col)) {
+            $db->exec("ALTER TABLE $table ADD COLUMN $col TEXT;");
+            echo "✅ Columna $col agregada a $table.<br>";
+        }
+    }
 }
 
+// --- Crear índice único en persona(dni) para evitar duplicados ---
+$existingIndex = $db->query("PRAGMA index_list('persona')")->fetchAll(PDO::FETCH_ASSOC);
+$indexNames = array_column($existingIndex, 'name');
 
-// Persona: agregar dni si no existe
-$cols = $db->query("PRAGMA table_info(persona)")->fetchAll(PDO::FETCH_ASSOC);
-if (!in_array('dni', array_column($cols, 'name'))) {
-    $db->exec("ALTER TABLE persona ADD COLUMN dni TEXT;");
-    echo "✅ Columna dni agregada a persona.<br>";
+if (!in_array('idx_persona_dni', $indexNames)) {
+    try {
+        $db->exec("CREATE UNIQUE INDEX idx_persona_dni ON persona(dni);");
+        echo "✅ Índice único creado en persona(dni).<br>";
+    } catch (Exception $e) {
+        echo "⚠️ No se pudo crear índice único en persona(dni): " . $e->getMessage() . "<br>";
+    }
 }
-
-
-// Persona: nuevos campos
-$cols = $db->query("PRAGMA table_info(persona)")->fetchAll(PDO::FETCH_ASSOC);
-$colNames = array_column($cols, 'name');
-
-if (!in_array('apellido', $colNames)) {
-    $db->exec("ALTER TABLE persona ADD COLUMN apellido TEXT;");
-    echo "✅ Columna apellido agregada.<br>";
-}
-if (!in_array('cargo', $colNames)) {
-    $db->exec("ALTER TABLE persona ADD COLUMN cargo TEXT;");
-    echo "✅ Columna cargo agregada.<br>";
-}
-if (!in_array('direccion', $colNames)) {
-    $db->exec("ALTER TABLE persona ADD COLUMN direccion TEXT;");
-    echo "✅ Columna direccion agregada.<br>";
-}
-if (!in_array('telefono', $colNames)) {
-    $db->exec("ALTER TABLE persona ADD COLUMN telefono TEXT;");
-    echo "✅ Columna telefono agregada.<br>";
-}
-
 
 echo "🚀 Migración completa.";

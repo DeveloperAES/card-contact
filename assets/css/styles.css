@@ -1,0 +1,229 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+:root {
+
+    --bg-btn-purple: #C427FB;
+    --color-text-light: #E0D9FF;
+    --color-black: #1F1D47;
+
+
+
+}
+
+body {
+    width: 100%;
+
+
+    position: relative;
+
+}
+
+main {
+    width: 100%;
+    overflow: hidden;
+}
+
+/*Clases generales*/
+.btn.close-sesion {
+    background-color: #000;
+    color: var(--color-text-light);
+}
+
+/*Fin clases generales*/
+
+.login-main-section {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .container {
+        background: rgba(20, 20, 22, 0.85);
+        padding: 2.5rem;
+        border-radius: 20px;
+        max-width: 450px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .input-group {
+            background: #2a2a2c;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            padding: 0.5rem 1rem;
+
+            input {
+                width: 100%;
+                border: none;
+                outline: none;
+                background: transparent;
+                color: #fff;
+                font-size: 0.95rem;
+            }
+        }
+
+        .btn-login {
+            width: 100%;
+            background: linear-gradient(90deg, #9b4dff, #ff4d6d);
+            border: none;
+            border-radius: 10px;
+            padding: 0.8rem;
+            font-size: 1rem;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 1rem;
+
+            &:hover {
+                opacity: 0.9;
+            }
+        }
+    }
+}
+
+.register-login-dni {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .container {
+        background: rgba(20, 20, 22, 0.85);
+        padding: 2.5rem;
+        border-radius: 20px;
+        max-width: 450px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+
+
+        h2 {
+            color: var(--color-text-light);
+        }
+
+        .input-group {
+            background: #2a2a2c;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            padding: 0.5rem 1rem;
+
+            input {
+                width: 100%;
+                border: none;
+                outline: none;
+                background: transparent;
+                color: #fff;
+                font-size: 0.95rem;
+            }
+        }
+
+        .btn-login {
+            width: 100%;
+            background: linear-gradient(90deg, #9b4dff, #ff4d6d);
+            border: none;
+            border-radius: 10px;
+            padding: 0.8rem;
+            font-size: 1rem;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 1rem;
+
+            &:hover {
+                opacity: 0.9;
+            }
+        }
+
+
+    }
+
+}
+
+.tarjeta-presentacion {
+    padding-block: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100dvh;
+
+    .container {
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            background-color: #fff;
+            padding-block: 1rem;
+            border-radius: 1rem;
+
+            .box-image {
+                img {
+                    width: 230px;
+                    height: 230px;
+                    object-fit: cover;
+                }
+            }
+
+            .qr-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                img {
+                    width: 230px;
+                    ;
+                }
+            }
+
+            p {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+.person-section-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100dvh;
+    padding-block: 1rem;
+
+    .container {
+        .person-card {
+            background-color: #fff;
+            padding-block: 1rem;
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+
+            .box-image {
+                margin-bottom: 1rem;
+
+                img {
+                    width: 230px;
+                    height: 230px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+            }
+        }
+    }
+}

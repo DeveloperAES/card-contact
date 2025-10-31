@@ -1,6 +1,7 @@
 <?php
 session_start();
 require 'includes/db.php';
+ob_start();  // Empiezo a capturar el contenido
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $usuario = $_POST['usuario'];
@@ -19,10 +20,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-<h2>Login</h2>
-<?php if (isset($error)) echo "<p style='color:red'>$error</p>"; ?>
-<form method="post">
-    <label>Usuario: <input type="text" name="usuario" required></label><br>
-    <label>Contraseña: <input type="password" name="password" required></label><br>
-    <button type="submit">Entrar</button>
-</form>
+
+<section class="login-main-section bg-dark">
+    <div class="container">
+        <h2 class="text-white">Inicie sesión</h2>
+        <div class="box-image">
+            <img src="assets/images/login.webp" class="img-fluid rounded-2" alt ="Login Image">    
+        </div>
+
+        <form method="post" class="login-form">
+            <div class="input-group">
+                <input type="text" name="usuario" placeholder="Usuario" required>
+            </div>
+            <div class="input-group">
+                <input type="password" name="password" placeholder="Contraseña" required>
+            </div>
+            <button type="submit" class="btn-login">Ingresar</button>
+        </form>
+    </div>
+</section>
+
+
+
+
+<?php
+$contenido = ob_get_clean(); // Guarda el contenido en variable
+$titulo = "Login"; //Es lo que va en ventana o pestaña del navegador
+include 'templates/main.php'; // Inserta dentro del layout
